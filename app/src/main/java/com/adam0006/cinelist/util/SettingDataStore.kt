@@ -1,4 +1,4 @@
-package com.adam0006.miniproject.util
+package com.adam0006.cinelist.util
 
 import android.content.Context
 import androidx.datastore.preferences.core.booleanPreferencesKey

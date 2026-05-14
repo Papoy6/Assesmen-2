@@ -1,4 +1,4 @@
-package com.adam0006.miniproject.database
+package com.adam0006.cinelist.database
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
@@ -16,4 +16,7 @@ interface FilmDao {
 
     @Delete
     suspend fun delete(film: Film)
+
+    @Update
+    suspend fun update(film: Film)
 }

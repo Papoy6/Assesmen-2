@@ -1,4 +1,4 @@
-package com.adam0006.miniproject.database
+package com.adam0006.cinelist.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

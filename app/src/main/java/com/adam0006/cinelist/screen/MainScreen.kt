@@ -17,19 +17,15 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.adam0006.cinelist.R
 import com.adam0006.cinelist.database.Film
-import com.adam0006.miniproject.database.MainViewModel
-import com.adam0006.cinelist.navigation.Screen
+import com.adam0006.cinelist.database.MainViewModel
+import com.adam0006.cinelist.util.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(navController: NavHostController, viewModel: MainViewModel) {
-    // Membaca data dari database (Modul 09)
     val listFilm by viewModel.dataFilm.collectAsState(initial = emptyList())
 
-    // State untuk Dialog (Modul 10)
     var showDialog by remember { mutableStateOf(false) }
-
-    // State untuk input data film baru
     var judul by remember { mutableStateOf("") }
     var genre by remember { mutableStateOf("") }
     var tahun by remember { mutableStateOf("") }
@@ -57,16 +53,13 @@ fun MainScreen(navController: NavHostController, viewModel: MainViewModel) {
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
             if (listFilm.isEmpty()) {
-                // Tampilan saat data kosong (Modul 07)
                 Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Text(stringResource(R.string.list_kosong))
                 }
             } else {
-                // Scrollable List (Modul 07)
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(listFilm) { film ->
                         ListItem(film = film) {
-                            // Navigasi ke Detail (Modul 08)
                             navController.navigate(Screen.Detail.withId(film.id))
                         }
                         HorizontalDivider()
@@ -75,7 +68,6 @@ fun MainScreen(navController: NavHostController, viewModel: MainViewModel) {
             }
         }
 
-        // --- LOGIKA DIALOG TAMBAH FILM (Modul 10) ---
         if (showDialog) {
             AlertDialog(
                 onDismissRequest = { showDialog = false },
@@ -107,7 +99,6 @@ fun MainScreen(navController: NavHostController, viewModel: MainViewModel) {
                         onClick = {
                             if (judul.isNotBlank()) {
                                 viewModel.tambahFilm(judul, genre, tahun)
-                                // Reset input dan tutup dialog
                                 judul = ""; genre = ""; tahun = ""
                                 showDialog = false
                             }
@@ -126,7 +117,6 @@ fun MainScreen(navController: NavHostController, viewModel: MainViewModel) {
     }
 }
 
-// Komponen Helper untuk Item List (Modul 07)
 @Composable
 fun ListItem(film: Film, onClick: () -> Unit) {
     Column(

@@ -1,4 +1,4 @@
-package com.adam0006.miniproject.util
+package com.adam0006.cinelist.util
 
 const val KEY_ID_FILM = "idFilm"
 
