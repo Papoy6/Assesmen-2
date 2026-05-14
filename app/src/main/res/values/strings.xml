@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">CineList</string>
+    <string name="tambah_film">Tambah Film</string>
+    <string name="edit_film">Ubah Film</string>
+    <string name="hapus_film">Hapus film ini?</string>
+    <string name="list_kosong">Belum ada film di daftar tontonan.</string>
+    <string name="tombol_simpan">Simpan</string>
+    <string name="tombol_batal">Batal</string>
+    <string name="tombol_hapu">Hapus</string>
+    <string name="mode_gelap">Mode Gelap</string>
+    <string name="format_info">%1$s • %2$s</string> </resources>
