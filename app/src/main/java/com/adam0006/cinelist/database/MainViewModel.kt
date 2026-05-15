@@ -2,37 +2,62 @@ package com.adam0006.cinelist.database
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.adam0006.cinelist.database.Film
-import com.adam0006.cinelist.database.FilmDao
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val dao: FilmDao) : ViewModel() {
 
-    val dataFilm: StateFlow<List<Film>> = dao.getAllFilm()
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = emptyList()
-        )
+    private val _sortOrder = MutableStateFlow(SortOrder.ID_DESC)
+    val sortOrder: StateFlow<SortOrder> = _sortOrder
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val dataFilm: StateFlow<List<Film>> = _sortOrder.flatMapLatest { order ->
+        when (order) {
+            SortOrder.ID_DESC -> dao.getAllFilm()
+            SortOrder.JUDUL_ASC -> dao.getAllFilmSortedByTitle()
+            SortOrder.RATING_DESC -> dao.getAllFilmSortedByRating()
+            SortOrder.TAHUN_DESC -> dao.getAllFilmSortedByYear()
+        }
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = emptyList()
+    )
 
     private var filmTerakhirDihapus: Film? = null
     
     private val _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow: SharedFlow<UiEvent> = _eventFlow
 
-    fun tambahFilm(judul: String, genre: String, tahun: String, sudahDitonton: Boolean) {
+    fun changeSortOrder(order: SortOrder) {
+        _sortOrder.value = order
+    }
+
+    fun tambahFilm(
+        judul: String, 
+        genre: String, 
+        tahun: String, 
+        sudahDitonton: Boolean,
+        rating: Float = 0f,
+        imageUri: String? = null,
+        isFavorite: Boolean = false
+    ) {
         viewModelScope.launch {
-            val filmBaru = Film(judul = judul, genre = genre, tahun = tahun, sudahDitonton = sudahDitonton)
+            val filmBaru = Film(
+                judul = judul, 
+                genre = genre, 
+                tahun = tahun, 
+                sudahDitonton = sudahDitonton,
+                rating = rating,
+                imageUri = imageUri,
+                isFavorite = isFavorite
+            )
             dao.insert(filmBaru)
         }
     }
 
-    suspend fun getFilmById(id: Int): Film? {
+    fun getFilmById(id: Int): Flow<Film?> {
         return dao.getFilmById(id)
     }
 
@@ -59,7 +84,17 @@ class MainViewModel(private val dao: FilmDao) : ViewModel() {
         }
     }
 
+    fun toggleFavorite(film: Film) {
+        viewModelScope.launch {
+            dao.update(film.copy(isFavorite = !film.isFavorite))
+        }
+    }
+
     sealed class UiEvent {
         data class ShowUndoSnackbar(val message: String) : UiEvent()
+    }
+
+    enum class SortOrder {
+        ID_DESC, JUDUL_ASC, RATING_DESC, TAHUN_DESC
     }
 }

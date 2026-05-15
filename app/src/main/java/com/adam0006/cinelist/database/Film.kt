@@ -9,5 +9,8 @@ data class Film(
     val judul: String,
     val genre: String,
     val tahun: String,
-    val sudahDitonton: Boolean = false
+    val sudahDitonton: Boolean = false,
+    val rating: Float = 0f,
+    val imageUri: String? = null,
+    val isFavorite: Boolean = false
 )
