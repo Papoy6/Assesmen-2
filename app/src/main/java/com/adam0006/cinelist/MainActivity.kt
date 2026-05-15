@@ -3,6 +3,7 @@ package com.adam0006.cinelist
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
@@ -23,14 +24,14 @@ class MainActivity : ComponentActivity() {
         setContent {
             val context = LocalContext.current
             val dataStore = remember { SettingsDataStore(context) }
-            val isDarkMode by dataStore.isDarkMode.collectAsState(initial = false)
+            val isDarkModePref by dataStore.isDarkMode.collectAsState(initial = isSystemInDarkTheme())
             
             val factory = ViewModelFactory(context)
             val viewModel: MainViewModel = viewModel(factory = factory)
             val navController = rememberNavController()
 
             MaterialTheme(
-                colorScheme = if (isDarkMode) darkColorScheme() else lightColorScheme()
+                colorScheme = if (isDarkModePref) darkColorScheme() else lightColorScheme()
             ) {
                 SetupNavGraph(navController, viewModel)
             }

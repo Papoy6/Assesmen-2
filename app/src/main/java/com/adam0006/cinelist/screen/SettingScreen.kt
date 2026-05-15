@@ -2,7 +2,7 @@ package com.adam0006.cinelist.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -27,13 +27,23 @@ fun SettingsScreen(navController: NavHostController) {
                 title = { Text("Pengaturan") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Kembali")
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Kembali"
+                        )
                     }
                 }
             )
         }
     ) { innerPadding ->
-        Column(modifier = Modifier.padding(innerPadding).padding(16.dp)) {
+        Column(
+            modifier = Modifier
+                .padding(innerPadding)
+                .padding(16.dp)
+        ) {
+            Text("Tampilan", style = MaterialTheme.typography.titleMedium)
+            Spacer(modifier = Modifier.height(8.dp))
+            
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -47,6 +57,18 @@ fun SettingsScreen(navController: NavHostController) {
                     }
                 )
             }
+            
+            HorizontalDivider(modifier = Modifier.padding(vertical = 16.dp))
+
+            Text("Info Aplikasi", style = MaterialTheme.typography.titleMedium)
+            Spacer(modifier = Modifier.height(8.dp))
+            Text("CineList App", style = MaterialTheme.typography.headlineSmall)
+            Text(
+                "Aplikasi daftar tontonan film pribadi Anda.",
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Text("Versi: 1.0.0", style = MaterialTheme.typography.labelLarge)
         }
     }
 }

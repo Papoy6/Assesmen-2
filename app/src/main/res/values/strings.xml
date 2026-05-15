@@ -8,4 +8,7 @@
     <string name="tombol_batal">Batal</string>
     <string name="tombol_hapu">Hapus</string>
     <string name="mode_gelap">Mode Gelap</string>
-    <string name="format_info">%1$s • %2$s</string> </resources>
+    <string name="format_info">%1$s • %2$s</string> 
+    <string name="list">Tampilan list</string>
+    <string name="grid">Tampilan grid</string>
+</resources>

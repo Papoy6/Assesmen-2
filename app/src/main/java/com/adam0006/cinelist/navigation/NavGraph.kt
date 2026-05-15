@@ -10,10 +10,8 @@ import com.adam0006.cinelist.database.MainViewModel
 import com.adam0006.cinelist.screen.MainScreen
 import com.adam0006.cinelist.screen.DetailScreen
 import com.adam0006.cinelist.screen.SettingsScreen
-import com.adam0006.cinelist.navigation.KEY_ID_FILM
-import com.adam0006.cinelist.navigation.Screen
 import com.adam0006.cinelist.screen.EditScreen
-
+import com.adam0006.cinelist.screen.AddScreen
 
 @Composable
 fun SetupNavGraph(
@@ -26,6 +24,10 @@ fun SetupNavGraph(
     ) {
         composable(route = Screen.Home.route) {
             MainScreen(navController = navController, viewModel = viewModel)
+        }
+
+        composable(route = Screen.Add.route) {
+            AddScreen(navController = navController, viewModel = viewModel)
         }
 
         composable(

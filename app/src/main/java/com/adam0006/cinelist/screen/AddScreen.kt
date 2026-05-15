@@ -8,57 +8,39 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.adam0006.cinelist.R
 import com.adam0006.cinelist.database.MainViewModel
-import com.adam0006.cinelist.database.Film
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditScreen(
-    navController: NavHostController,
-    viewModel: MainViewModel,
-    idFilm: Int
-) {
+fun AddScreen(navController: NavHostController, viewModel: MainViewModel) {
     var judul by remember { mutableStateOf("") }
     var genre by remember { mutableStateOf("") }
     var tahun by remember { mutableStateOf("") }
     var sudahDitonton by remember { mutableStateOf(false) }
     var expanded by remember { mutableStateOf(false) }
-    var filmAsli by remember { mutableStateOf<Film?>(null) }
 
     val genreOptions = listOf("Action", "Comedy", "Drama", "Horror", "Sci-Fi", "Romance", "Thriller")
-
-    LaunchedEffect(idFilm) {
-        val data = viewModel.getFilmById(idFilm)
-        data?.let {
-            filmAsli = it
-            judul = it.judul
-            genre = it.genre
-            tahun = it.tahun
-            sudahDitonton = it.sudahDitonton
-        }
-    }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Edit Film") },
+                title = { Text(stringResource(R.string.tambah_film)) },
                 navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Kembali"
-                        )
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                     }
                 }
             )
         }
-    ) { padding ->
+    ) { innerPadding ->
         Column(
             modifier = Modifier
-                .padding(padding)
+                .padding(innerPadding)
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
@@ -122,20 +104,15 @@ fun EditScreen(
 
             Button(
                 onClick = {
-                    filmAsli?.let {
-                        viewModel.editFilm(it.copy(
-                            judul = judul,
-                            genre = genre,
-                            tahun = tahun,
-                            sudahDitonton = sudahDitonton
-                        ))
-                        navController.popBackStack()
+                    if (judul.isNotBlank() && genre.isNotBlank() && tahun.isNotBlank()) {
+                        viewModel.tambahFilm(judul, genre, tahun, sudahDitonton)
+                        navController.navigateUp()
                     }
                 },
                 modifier = Modifier.fillMaxWidth(),
                 enabled = judul.isNotBlank() && genre.isNotBlank() && tahun.isNotBlank()
             ) {
-                Text("Simpan Perubahan")
+                Text(stringResource(R.string.tombol_simpan))
             }
         }
     }

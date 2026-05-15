@@ -14,10 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.adam0006.cinelist.database.Film
 import com.adam0006.cinelist.database.MainViewModel
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import com.adam0006.cinelist.navigation.Screen
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -53,7 +50,6 @@ fun DetailScreen(
                         Icon(imageVector = Icons.Default.Delete, contentDescription = "Hapus")
                     }
                 }
-
             )
         }
     ) { paddingValues ->
@@ -83,6 +79,16 @@ fun DetailScreen(
                         Text(
                             text = "Tahun: ${data.tahun}",
                             style = MaterialTheme.typography.bodyLarge
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        SuggestionChip(
+                            onClick = { },
+                            label = { 
+                                Text(if (data.sudahDitonton) "Sudah Ditonton" else "Belum Ditonton") 
+                            },
+                            colors = SuggestionChipDefaults.suggestionChipColors(
+                                labelColor = if (data.sudahDitonton) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
+                            )
                         )
                     }
                 }

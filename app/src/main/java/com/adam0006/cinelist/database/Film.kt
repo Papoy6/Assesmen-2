@@ -8,5 +8,6 @@ data class Film(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val judul: String,
     val genre: String,
-    val tahun: String
+    val tahun: String,
+    val sudahDitonton: Boolean = false
 )
