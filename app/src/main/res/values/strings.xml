@@ -1,14 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">CineList</string>
-    <string name="tambah_film">Tambah Film</string>
-    <string name="edit_film">Ubah Film</string>
-    <string name="hapus_film">Hapus film ini?</string>
-    <string name="list_kosong">Belum ada film di daftar tontonan.</string>
-    <string name="tombol_simpan">Simpan</string>
-    <string name="tombol_batal">Batal</string>
-    <string name="tombol_hapu">Hapus</string>
-    <string name="mode_gelap">Mode Gelap</string>
-    <string name="format_info">%1$s • %2$s</string> 
-    <string name="list">Tampilan list</string>
-    <string name="grid">Tampilan grid</string>
+    <string name="app_name">Watchlist Film</string>
+    <string name="gambar">Poster %1$s</string>
+    <string name="tambah_film">Tambah film</string>
+    <string name="profil">Profil</string>
+    <string name="error">Gagal memuat data.. Koneksi error.</string>
+    <string name="try_again">Coba lagi</string>
+    <string name="tutup">Tutup</string>
+    <string name="logout">Logout</string>
+    <string name="judul">Judul</string>
+    <string name="genre">Genre</string>
+    <string name="batal">Batal</string>
+    <string name="simpan">Simpan</string>
+    <string name="hapus">Hapus</string>
+    <string name="hapus_judul">Konfirmasi Hapus</string>
+    <string name="hapus_konfirmasi">Apakah kamu yakin ingin menghapus \"%1$s\"?</string>
+    <string name="login_required">Silakan login terlebih dahulu</string>
 </resources>

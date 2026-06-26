@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "939602555851",
+    "project_id": "tubes-5e653",
+    "storage_bucket": "tubes-5e653.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:939602555851:android:84f01de36aeb243f253c4e",
+        "android_client_info": {
+          "package_name": "com.adam0006.cinelist"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeCqoshJ8jnajG5csleL9f_Zk0-9mFEPU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
